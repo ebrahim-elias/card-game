@@ -27,12 +27,12 @@ namespace CardGame
         {
             Deck d = new Deck();
            
-            bool finish = false;
+            bool finish = false;   // for Quitting the game
             while (!finish)
             {
                 welcomeMessage();
                 string input = Console.ReadLine();
-                switch (input)
+                switch (input)  // hanling the input value from user
                 {
                     case "1":
                         d.mix();
