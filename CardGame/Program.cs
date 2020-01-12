@@ -10,7 +10,8 @@ namespace CardGame
     {
         static void Main(string[] args)
         {
-            mainOption();            
+            mainOption();        
+            
         }
         private static void welcomeMessage()
         {
@@ -26,7 +27,7 @@ namespace CardGame
         private static void mainOption()
         {
             Deck d = new Deck();
-            
+            List<Card> ClassList = d.deck;
             bool finish = false;   // for Quitting the game
             while (!finish)
             {
@@ -35,13 +36,13 @@ namespace CardGame
                 switch (input)  // hanling the input value from user
                 {
                     case "1":
-                        d.mix(d.deck);
+                        d.mix(ClassList);
                         break;
                     case "2":
-                        d.pullOneCard(d.deck);
+                        d.pullOneCard(ClassList);
                         break;
                     case "3":
-                        d.sortCards(d.deck);
+                        ClassList = d.sortCards(ClassList);
                         break;
                     case "4":
                         finish = true;
