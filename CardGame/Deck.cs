@@ -77,18 +77,27 @@ namespace CardGame
             return null;
         }
         // sort the cards in the game according to suits and value 
-        public void sortCards(List<Card> deck)
+        public List<Card> sortCards(List<Card> deck)
         {
-            List<Card> al = new List<Card>();
-            // sorting the deck groupt by suits and orderd by faces
-             al = deck.GroupBy(s => s.suit)
-                  .OrderBy(g => g.Count())
-                  .SelectMany(g => g.OrderBy(c => c.faceValue)).ToList();
-            // for testing
-            foreach (var item in al)
+            try
             {
-                Console.WriteLine(item);
+                List<Card> al = new List<Card>();
+                // sorting the deck groupt by suits and orderd by faces
+                al = deck.GroupBy(s => s.suit)
+                     .OrderBy(g => g.Count())
+                     .SelectMany(g => g.OrderBy(c => c.faceValue)).ToList();
+                // for testing
+                foreach (var item in al)
+                {
+                    Console.WriteLine(item);
+                }
+                return al;
             }
+            catch (ArgumentNullException e)
+            {
+                Console.WriteLine(e);
+            }
+            return null;
 
         }
     }
