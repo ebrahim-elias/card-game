@@ -3,29 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections;
+using static CardGame.Card;
 /**
- * Deck class represents a deck of the playing cards 
- */
+* Deck class represents a deck of the playing cards 
+*/
 namespace CardGame
 {
-    class Deck
+    public class Deck
     {
-        private List<Card> deck; // Array list of the card objects
+        public List<Card> deck; // Array list of the card objects
         private const int NUMBER_OF_CARDS = 52; 
 
         // constructor fills the deck
         public Deck()
         {
-            string[] faces = { "Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King" };
+            //string[] faces = { "Ace", "Two", "Three", "Four", "Five", "six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King" };
+
             string[] suits = { "Hearts", "Clubs", "Diamonds", "Spades" };
             deck = new List<Card>(NUMBER_OF_CARDS); // create the list based on the cards number
-            int count = 0;    // init counter to iterate the deck 
+            int count = 0;    // counter to iterate the deck 
             while (count < NUMBER_OF_CARDS)
             {
                 foreach (var suit in suits) // first outerloop that iterate the suits  
                 {
-                    foreach (var face in faces) // innerloop for iterating the faces for each suit
+                    foreach (faceValues face in Enum.GetValues(typeof(faceValues))) // innerloop for iterating the faces for each suit
                     {
                         deck.Add(new Card(face, suit)); // create a new card and add it to the deck list
                         // test the output 
@@ -42,7 +43,7 @@ namespace CardGame
             
         }
         // Mix method to shuffle the cards
-        public void mix()
+        public void mix(List<Card> deck)
         {
             Random randomNumber = new Random(); // generate a random number
             // swap current card with a random card
@@ -55,30 +56,40 @@ namespace CardGame
             }
         }
         // pull one card and show it in the screen
-        public void pullOneCard()
+        public string pullOneCard(List<Card> deck)
         {
-            int currentCard = 0; // Index of next card to be pulled 
-            if (currentCard < deck.Count)
+            try
             {
-                Console.WriteLine(deck[currentCard]);
-                deck.RemoveAt(currentCard);
+                int currentCard = 0; // Index of next card to be pulled 
+                if (currentCard < deck.Count)
+                {
+                    var current = deck[currentCard];
+                    Console.WriteLine(deck[currentCard]);
+                    deck.RemoveAt(currentCard);
+                    return current.ToString(); //returning the current Card
+                }
+                else Console.WriteLine("No more cards to draw");
             }
-            else Console.WriteLine("No Cards to drawn");
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return null;
         }
         // sort the cards in the game according to suits and value 
-        public void sortCards()
+        public void sortCards(List<Card> deck)
         {
             List<Card> al = new List<Card>();
-
+            // sorting the deck groupt by suits and orderd by faces
              al = deck.GroupBy(s => s.suit)
                   .OrderBy(g => g.Count())
-                  .SelectMany(g => g.OrderBy(c => c.face)).ToList();
-
+                  .SelectMany(g => g.OrderBy(c => c.faceValue)).ToList();
+            // for testing
             foreach (var item in al)
             {
-
                 Console.WriteLine(item);
             }
+
         }
     }
 }
