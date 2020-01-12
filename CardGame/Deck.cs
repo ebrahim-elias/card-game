@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections;
 /**
  * Deck class represents a deck of the playing cards 
  */
 namespace CardGame
 {
-    class Deck
+    public class Deck
     {
-        private List<Card> deck; // Array list of the card objects
+        public List<Card> deck; // Array list of the card objects
         private const int NUMBER_OF_CARDS = 52; 
 
         // constructor fills the deck
@@ -42,7 +41,7 @@ namespace CardGame
             
         }
         // Mix method to shuffle the cards
-        public void mix()
+        public void mix(List<Card> deck)
         {
             Random randomNumber = new Random(); // generate a random number
             // swap current card with a random card
@@ -55,18 +54,28 @@ namespace CardGame
             }
         }
         // pull one card and show it in the screen
-        public void pullOneCard()
+        public string pullOneCard(List<Card> deck)
         {
-            int currentCard = 0; // Index of next card to be pulled 
-            if (currentCard < deck.Count)
+            try
             {
-                Console.WriteLine(deck[currentCard]);
-                deck.RemoveAt(currentCard);
+                int currentCard = 0; // Index of next card to be pulled 
+                if (currentCard < deck.Count)
+                {
+                    var current = deck[currentCard];
+                    Console.WriteLine(deck[currentCard]);
+                    deck.RemoveAt(currentCard);
+                    return current.ToString(); //returning the current item
+                }
+                else Console.WriteLine("No more cards to draw");
             }
-            else Console.WriteLine("No Cards to drawn");
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return null;
         }
         // sort the cards in the game according to suits and value 
-        public void sortCards()
+        public void sortCards(List<Card> deck)
         {
             List<Card> al = new List<Card>();
 
@@ -76,7 +85,6 @@ namespace CardGame
 
             foreach (var item in al)
             {
-
                 Console.WriteLine(item);
             }
         }

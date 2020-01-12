@@ -26,7 +26,7 @@ namespace CardGame
         private static void mainOption()
         {
             Deck d = new Deck();
-           
+            
             bool finish = false;   // for Quitting the game
             while (!finish)
             {
@@ -35,13 +35,13 @@ namespace CardGame
                 switch (input)  // hanling the input value from user
                 {
                     case "1":
-                        d.mix();
+                        d.mix(d.deck);
                         break;
                     case "2":
-                        d.pullOneCard();
+                        d.pullOneCard(d.deck);
                         break;
                     case "3":
-                        d.sortCards();
+                        d.sortCards(d.deck);
                         break;
                     case "4":
                         finish = true;

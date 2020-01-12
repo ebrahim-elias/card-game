@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CardGame
 {
-    class Card
+    public class Card
     {
         public string face { get; private set; } // like Ace, king ..
         public string suit { get; private set; } // like hearts, clubs ..
