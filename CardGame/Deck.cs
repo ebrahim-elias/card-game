@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static CardGame.Card;
 /**
- * Deck class represents a deck of the playing cards 
- */
+* Deck class represents a deck of the playing cards 
+*/
 namespace CardGame
 {
     public class Deck
@@ -16,15 +17,16 @@ namespace CardGame
         // constructor fills the deck
         public Deck()
         {
-            string[] faces = { "Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King" };
+            //string[] faces = { "Ace", "Two", "Three", "Four", "Five", "six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King" };
+
             string[] suits = { "Hearts", "Clubs", "Diamonds", "Spades" };
             deck = new List<Card>(NUMBER_OF_CARDS); // create the list based on the cards number
-            int count = 0;    // init counter to iterate the deck 
+            int count = 0;    // counter to iterate the deck 
             while (count < NUMBER_OF_CARDS)
             {
                 foreach (var suit in suits) // first outerloop that iterate the suits  
                 {
-                    foreach (var face in faces) // innerloop for iterating the faces for each suit
+                    foreach (faceValues face in Enum.GetValues(typeof(faceValues))) // innerloop for iterating the faces for each suit
                     {
                         deck.Add(new Card(face, suit)); // create a new card and add it to the deck list
                         // test the output 
@@ -64,7 +66,7 @@ namespace CardGame
                     var current = deck[currentCard];
                     Console.WriteLine(deck[currentCard]);
                     deck.RemoveAt(currentCard);
-                    return current.ToString(); //returning the current item
+                    return current.ToString(); //returning the current Card
                 }
                 else Console.WriteLine("No more cards to draw");
             }
@@ -78,15 +80,16 @@ namespace CardGame
         public void sortCards(List<Card> deck)
         {
             List<Card> al = new List<Card>();
-
+            // sorting the deck groupt by suits and orderd by faces
              al = deck.GroupBy(s => s.suit)
                   .OrderBy(g => g.Count())
-                  .SelectMany(g => g.OrderBy(c => c.face)).ToList();
-
+                  .SelectMany(g => g.OrderBy(c => c.faceValue)).ToList();
+            // for testing
             foreach (var item in al)
             {
                 Console.WriteLine(item);
             }
+
         }
     }
 }

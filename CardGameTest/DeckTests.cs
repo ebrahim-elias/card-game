@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using CardGame;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+using static CardGame.Card;
 
 namespace CardGameTest
 {
@@ -15,10 +15,10 @@ namespace CardGameTest
         public void TestInitialize()
         {
             list = new List<Card>();
-            list.Add(new Card("Ace", "Hearts"));
-            list.Add(new Card("2", "Hearts"));
-            list.Add(new Card("3", "Hearts"));
-            list.Add(new Card("4", "Hearts"));
+            list.Add(new Card((faceValues)(1), "Hearts"));
+            list.Add(new Card((faceValues)(2), "Hearts"));
+            list.Add(new Card((faceValues)(3), "Hearts"));
+            list.Add(new Card((faceValues)(4), "Hearts"));
         }
 
         [TestMethod]
@@ -43,7 +43,8 @@ namespace CardGameTest
             d.mix(list);
             Assert.AreNotEqual("Ace of Hearts", d.pullOneCard(list));
             d.sortCards(list);
-            
+            Assert.AreNotEqual("Two of Hearts", d.pullOneCard(list));
+
         }
 
     }
